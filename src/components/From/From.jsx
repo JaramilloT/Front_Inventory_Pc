@@ -48,7 +48,7 @@ export const From = () => {
       !codigoMonitor || !serialMonitor || !marcaMonitor || !marcaMouse || 
       !codigoMouse || !marcaTeclado || !codigoTeclado || !areaUbicacion || 
       !encargado || !sede || !tipoPc || !tipoAlmacenamiento || !almacenamiento || 
-      !memoria || !procesador || !ip) {
+      !memoria || !procesador || !ip) { // ← Quitado tbGb de la validación
       setMessage('Por favor, completa todos los campos obligatorios.');
       return;
     }
@@ -76,7 +76,8 @@ export const From = () => {
     formData.append('sede', sede);
     formData.append('observaciones', observaciones);
     formData.append('tipo_pc', tipoPc);
-    formData.append('ip', ip);
+    formData.append('ip', ip); 
+    formData.append('tb_gb', 'N/A'); // Este valor no debe faltar. Usa '0' si no quieres vacío.
     // formData.append('file', file); // Agregar el archivo a los datos del formulario
 
     try {
@@ -222,7 +223,7 @@ export const From = () => {
           <input type="text" value={tipoPc} onChange={(e) => setTipoPc(e.target.value)} />
         </div>
         <div>
-          <p>Dirección IP</p>
+          <p>Dirección IP</p> 
           <input type="text" value={ip} onChange={(e) => setIp(e.target.value)} />
         </div>
         {/* <div>

@@ -35,7 +35,7 @@ export const Register = () => {
 
     const formDatas = new FormData();
     formDatas.append('nombre', nombre);
-    formDatas.append('nombre', apellido);
+    formDatas.append('apellido', apellido);
     
 
     try {
