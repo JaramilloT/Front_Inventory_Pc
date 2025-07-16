@@ -187,6 +187,7 @@ export const From = () => {
           <input type="text" value={marcaMonitor} onChange={(e) => setMarcaMonitor(e.target.value)} />
         </div>
         <div>
+          
           <p>Marca Mouse</p>
           <input type="text" value={marcaMouse} onChange={(e) => setMarcaMouse(e.target.value)} />
         </div>
