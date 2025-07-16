@@ -6,7 +6,7 @@
 }
 .Footer{
     max-width: 100%;
-    overflow-x: hidden;
+    height: 159px;
     background: #3980c0;
     margin-top: 50px;
 }
@@ -22,11 +22,11 @@
     flex-direction: column;
     justify-content: center;
     color: white;
-    font-size: 20px;
+    font-size: 17px;
 }
 
 .img-f{
-    height: 150px;
+    height: 115px;
     
 }
 

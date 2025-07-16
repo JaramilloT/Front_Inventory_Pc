@@ -42,7 +42,7 @@
   background-color: #f0f0f0;
 }
 
-/* 🔁 Responsive para tablets y móviles */
+
 @media (max-width: 768px) {
   .navber {
     flex-direction: column;
