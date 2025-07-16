@@ -6,10 +6,9 @@ export const Nav = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Limpia el almacenamiento local (puedes ajustar esto según tu lógica)
+    // Limpiar el almacenamiento local
     localStorage.clear();
 
-    // Redirige al login
     navigate('/');
   };
 
