@@ -1,40 +1,31 @@
-// import React, { useEffect, useState } from 'react'
-import logo from '../../assets/logo-blanco.png'
-import './Nav.css'
-// import { useParams } from 'react-router-dom'
-// import axios from 'axios'
-// import { useUser } from '../../context/UserContext';
+import { useNavigate } from 'react-router-dom';
+import logo from '../../assets/logo-blanco.png';
+import './Nav.css';
 
 export const Nav = () => {
-  // const { user } = useUser();
-//   const {id}= useParams();
-//   const [userNav, setUserNav] = useState(null)
-  
-//   useEffect(() => {
-//     const fetchUserData = async () => {
-//       try{
-//       const responses = await axios.get()`http://localhost:3000/api/v1/user/${id}`;
-//       setUserNav(responses.data)
-//     } catch (error) {
-//       console.error('Error al obtener los datos del usuario:', error);
-//       alert('Error al obtener los datos del usuario: ' + error.message);
-//     }
-// };
-//   fetchUserData();
-// }, [id])
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Limpia el almacenamiento local (puedes ajustar esto según tu lógica)
+    localStorage.clear();
+
+    // Redirige al login
+    navigate('/');
+  };
 
   return (
     <div className='nav'>
       <div className='navber'>
-      
-      <div>
-        <img className='logo' src={logo} alt="" />
-      </div>
-      <div className='name'>
-      <h1 className='h1-nav'>Inventory.Soft</h1>
+        <img className='logo' src={logo} alt="Logo" />
 
+        <div className='name'>
+          <h1 className='h1-nav'>Inventory - Software</h1>
+        </div>
+
+        <button className='logout-btn' onClick={handleLogout}>
+          Cerrar sesión
+        </button>
       </div>
     </div>
-      </div>
-  )
-}
+  );
+};
