@@ -13,23 +13,26 @@ export const Details = () => {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editedFormDetails, setEditedFormDetails] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/from/${id}`);
         const { file, id_formulario, ...rest } = response.data;
         setFormDetails(rest);
 
         const parsedFiles = Array.isArray(file) ? file : JSON.parse(file || '[]');
-        console.log("Archivos obtenidos:", parsedFiles);
         setUploadedFiles(parsedFiles);
       } catch (error) {
         console.error('Error al obtener los datos del formulario:', error);
         alert('Error al obtener los datos del formulario: ' + error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
-  
+
     fetchData();
   }, [id]);
 
@@ -110,77 +113,140 @@ export const Details = () => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Cargando datos...</p>
+      </div>
+    );
+  }
+
   if (!formDetails) {
-    return <p>Cargando datos...</p>;
+    return <p className="error-message">No se pudieron cargar los datos</p>;
   }
 
   return (
-    <div className="details-container">
-            <h1 className='h1-sesion'>Inventory.Soft</h1>
-      <div className='bnts-from'>
-        <Link to='/main'>
-          <img className='previ' src={previous} alt="" />
-        </Link>
-        <p className='vol-from'>Volver</p>
-      </div>
-      <div className='back'>
-        <img className='img-details' src={logos} alt="" />
-        <hr />
-      </div>
-      <div className="details-content">
-        {Object.entries(formDetails).map(([key, value]) => (
-          <div key={key} className="field">
-            <strong>{key.replace('_', ' ')}:</strong>
-            {isEditing ? (
-              <input
-                type="text"
-                name={key}
-                value={editedFormDetails[key] || ''}
-                onChange={handleInputChange}
-              />
-            ) : (
-              <span>{value}</span>
-            )}
+    <div className="scroll-wrapper">
+      <div className="details-container">
+        <header className="details-header">
+          <div className='back-button-container'>
+            <Link to='/main' className="back-link">
+              <img className='back-icon' src={previous} alt="Volver" />
+              <span className='back-text'>Volver</span>
+              <h1 className='app-title'>Inventory.Soft</h1>
+            </Link>
           </div>
-        ))}
+        </header>
 
-        <h2 className='p-details'>Archivos subidos:</h2>
-        <ul>
-          {uploadedFiles.map((file, index) => (
-            <li key={index} className="file-item">
-              <a href={`${process.env.REACT_APP_BACKEND_URL.replace('/api/v1', '')}/uploads/${file.path}`} target="_blank" rel="noopener noreferrer">
-                {file.name}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="details-content">
+          <div className="details-card">
+            <h2 className="details-title">Detalles del Producto</h2>
 
-        <form onSubmit={handleFileUpload}>
-          <div>
-            <label htmlFor="file">Seleccione los archivos: </label>
-            <input
-              className='file-deta'
-              type="file"
-              id="file"
-              multiple
-              onChange={handleFileChange}
-              accept=".pdf,.doc,.docx,.xls,.xlsx"
-            />
-          </div>
-          <div className='button-details'>
-            <button className='archi' type="submit">Subir Archivos</button>
-            <p>o</p>
-            <div>
-              {isEditing ? (
-                <button className='archi' type="button" onClick={handleSaveChanges}>Guardar</button>
-              ) : (
-                <button className='archi' type="button" onClick={handleEditClick}>Editar</button>
-              )}
-              <button className="delete-form" type="button" onClick={handleDeleteForm}><strong>Eliminar Hoja de Vida</strong></button>
+            <div className="details-grid">
+              {Object.entries(formDetails).map(([key, value]) => (
+                <div key={key} className="detail-field">
+                  <label className="detail-label">{formatLabel(key)}</label>
+                  {isEditing ? (
+                    <input
+                      className="detail-input"
+                      type="text"
+                      name={key}
+                      value={editedFormDetails[key] || ''}
+                      onChange={handleInputChange}
+                    />
+                  ) : (
+                    <span className="detail-value">{value || '-'}</span>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
-        </form>
+
+          <div className="files-section">
+            <h3 className="files-title">Archivos adjuntos</h3>
+
+            {uploadedFiles.length > 0 ? (
+              <ul className="files-list">
+                {uploadedFiles.map((file, index) => (
+                  <li key={index} className="file-item">
+                    <a
+                      href={`${process.env.REACT_APP_BACKEND_URL.replace('/api/v1', '')}/uploads/${file.path}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="file-link"
+                    >
+                      <span className="file-icon">📄</span>
+                      {file.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="no-files">No hay archivos adjuntos</p>
+            )}
+
+            <form onSubmit={handleFileUpload} className="upload-form">
+              <div className="file-input-container">
+                <label htmlFor="file-upload" className="file-upload-label">
+                  <span className="upload-icon">⬆️</span>
+                  Seleccionar archivos
+                  <input
+                    id="file-upload"
+                    type="file"
+                    multiple
+                    onChange={handleFileChange}
+                    accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg"
+                    className="file-input"
+                  />
+                </label>
+                {files.length > 0 && (
+                  <div className="selected-files">
+                    {Array.from(files).map((file, i) => (
+                      <span key={i} className="file-name">{file.name}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="action-buttons">
+                <button type="submit" className="btn btn-upload" disabled={files.length === 0}>
+                  Subir Archivos
+                </button>
+
+                <div className="edit-buttons">
+                  {isEditing ? (
+                    <>
+                      <button type="button" className="btn btn-save" onClick={handleSaveChanges}>
+                        Guardar Cambios
+                      </button>
+                      <button type="button" className="btn btn-cancel" onClick={() => setIsEditing(false)}>
+                        Cancelar
+                      </button>
+                    </>
+                  ) : (
+                    <button type="button" className="btn btn-edit" onClick={handleEditClick}>
+                      Editar Información
+                    </button>
+                  )}
+                </div>
+
+                <button type="button" className="btn btn-delete" onClick={handleDeleteForm}>
+                  Eliminar Producto
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
+
+// Función auxiliar para formatear las claves
+function formatLabel(key) {
+  return key
+    .split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
