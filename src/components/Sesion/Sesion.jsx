@@ -13,7 +13,6 @@ export const Sesion = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validaciones básicas
     if (!correo || !contraseña) {
       setMessage('Por favor, completa todos los campos obligatorios.');
       return;
@@ -25,18 +24,12 @@ export const Sesion = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/auth/login`,
-        {
-          correo,
-          contraseña,
-        },
-        {
-          withCredentials: true, 
-        }
+        `${process.env.REACT_APP_BACKEND_URL}/auth/login`, // <-- usa la variable de entorno
+        { correo, contraseña },
+        { withCredentials: true }
       );
-      
+
       if (response.status === 201) {
-        // Guardamos el estado de sesión
         localStorage.setItem('isAuthenticated', 'true');
         setMessage('Inicio de sesión exitoso');
         navigate('/home-152628282828');
@@ -53,11 +46,9 @@ export const Sesion = () => {
     <div className="session">
       <form onSubmit={handleSubmit}>
         <h1 className="h1-sesion">Inventory - Software</h1>
-
         <div className="logo-sesion">
           <img className="log" src={log} alt="Logo de la aplicación" />
         </div>
-
         <div className="cp">
           <div className="email">
             <label className="ep" htmlFor="correo">Correo</label>
@@ -70,7 +61,6 @@ export const Sesion = () => {
               onChange={(e) => setCorreo(e.target.value)}
             />
           </div>
-
           <div className="password">
             <label className="ep" htmlFor="contraseña">Contraseña</label>
             <input
@@ -82,7 +72,6 @@ export const Sesion = () => {
               onChange={(e) => setContraseña(e.target.value)}
             />
           </div>
-
           <div className="btn-group">
             <button className="ci" type="submit">Iniciar Sesión</button>
             <Link to="/register">
@@ -90,7 +79,6 @@ export const Sesion = () => {
             </Link>
           </div>
         </div>
-
         {message && <p className="message">{message}</p>}
       </form>
     </div>
