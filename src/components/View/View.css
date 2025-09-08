@@ -1,80 +1,94 @@
+/* Contenedor principal */
 .views {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  background-color: #f9f9f9;
-  padding: 30px;
-  margin-bottom: 0;     /* evita márgenes negativos que pueden ocultar contenido */
+  width: 100%;
   min-height: 100vh;
-  height: auto;
+  background-color: #f9f9f9;
+  padding: 30px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto; /* 🔑 siempre permite scroll si hace falta */
 }
 
+/* Contenedor de tarjetas */
 .view {
   display: flex;
-  gap: 40px;
   flex-wrap: wrap;
+  gap: 30px;
   justify-content: center;
+  width: 100%;
+  max-width: 1200px;
 }
 
+/* Cada tarjeta */
 .creation-view {
+  background: #fff;
   border: 1px solid #ccc;
   border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  padding: 30px;
-  background-color: #fff;
-  width: 300px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  padding: 25px;
+  width: 280px;
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .creation-view:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.15);
 }
 
+/* Imagen */
 .view-img {
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   object-fit: contain;
   margin-bottom: 20px;
 }
 
+/* Botón */
 .btn-view {
+  display: block;
+  width: 100%;
   background-color: #3980c0;
-  color: white;
+  color: #fff;
   border: none;
-  padding: 12px 20px;
+  padding: 12px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 15px;
-  font-weight:bold ;
+  font-weight: bold;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .btn-view:hover {
   background-color: #2f6a9e;
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
+/* 📱 Responsivo */
 @media (max-width: 768px) {
+  .views {
+    padding: 20px 10px;
+  }
+
   .view {
     flex-direction: column;
+    gap: 20px;
     align-items: center;
   }
 
   .creation-view {
-    margin: 20px 0;
+    width: 90%;
+    padding: 20px;
   }
 
   .view-img {
-    width: 180px;
-    height: 180px;
+    width: 150px;
+    height: 150px;
   }
-}
-/* Ajuste para móviles: levantar el contenido y permitir scroll natural */
-@media (max-width: 768px) {
-  .views {
-    align-items: flex-start;
-    padding: 16px;
+
+  .btn-view {
+    font-size: 16px;
+    padding: 14px;
   }
 }
