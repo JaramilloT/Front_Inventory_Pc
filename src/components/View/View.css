@@ -1,11 +1,13 @@
 .views {
-  flex: 1;
   display: flex;
+  flex: 1;
   justify-content: center;
   align-items: center;
   background-color: #f9f9f9;
   padding: 30px;
-  margin-bottom: -50px;
+  margin-bottom: 0;     /* evita márgenes negativos que pueden ocultar contenido */
+  min-height: 100vh;
+  height: auto;
 }
 
 .view {
@@ -67,5 +69,12 @@
   .view-img {
     width: 180px;
     height: 180px;
+  }
+}
+/* Ajuste para móviles: levantar el contenido y permitir scroll natural */
+@media (max-width: 768px) {
+  .views {
+    align-items: flex-start;
+    padding: 16px;
   }
 }

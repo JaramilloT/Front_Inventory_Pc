@@ -1,9 +1,9 @@
 /* Main.css */
 .main-container {
-  padding: 0;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  /* IMPORTANT: no max-height para que la página pueda crecer y scrollear */
 }
 
 .header-section {

@@ -315,7 +315,8 @@
 
 /* Scroll vertical sin scroll horizontal */
 .scroll-wrapper {
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;            /* no forzar 100vh fijo */
   overflow-y: auto;
   overflow-x: hidden;
   background-color: #f6f8fa;

@@ -1,10 +1,10 @@
 .form-wrapper {
-  height: 99vh;
+  min-height: 100vh;       /* base de la pantalla, pero permite crecer */
   padding: 0.5rem;
   background-color: #f6f8fa;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: flex-start; /* importante: no centrar verticalmente en móvil */
 }
 
 .form-content {
@@ -16,7 +16,8 @@
   max-width: 1000px;
   display: flex;
   flex-direction: column;
-  max-height: 87vh;
+  height: auto;            /* permitir que el contenido crezca */
+  /* quitar max-height: 87vh; para que no límite el contenido */
 }
 
 .form-scroll-container {
