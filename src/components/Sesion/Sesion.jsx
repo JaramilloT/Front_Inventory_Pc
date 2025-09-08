@@ -24,11 +24,17 @@ export const Sesion = () => {
     }
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, {
-        correo,
-        contraseña,
-      });
-
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/auth/login`,
+        {
+          correo,
+          contraseña,
+        },
+        {
+          withCredentials: true, 
+        }
+      );
+      
       if (response.status === 201) {
         // Guardamos el estado de sesión
         localStorage.setItem('isAuthenticated', 'true');

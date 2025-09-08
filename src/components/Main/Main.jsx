@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Footer } from '../Footer/Footer';
 import previous from '../../assets/previ.png';
 import axios from 'axios';
 import './Main.css';

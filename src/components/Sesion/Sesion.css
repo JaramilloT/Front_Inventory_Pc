@@ -116,3 +116,36 @@ button.ci:hover {
   text-align: center;
   font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  body, html {
+    overflow: auto;   /* Permitimos scroll en móviles */
+    height: auto;
+  }
+
+  .session, .register {
+    height: auto;         /* Ya no forzamos el 100vh, así se adapta */
+    padding: 20px 10px;   /* Le damos un poco de aire lateral */
+    align-items: flex-start; /* El contenido sube, no queda clavado en el centro */
+  }
+
+  form {
+    max-width: 100%;  /* Que el formulario no se desborde */
+    box-shadow: none; /* Menos pesado en pantallas pequeñas */
+    padding: 20px;
+  }
+
+  .h1-sesion {
+    font-size: 24px;
+  }
+
+  .input {
+    font-size: 16px; /* Más fácil de usar con dedo */
+  }
+
+  button.ci {
+    font-size: 16px;
+    padding: 12px;
+  }
+}
+    

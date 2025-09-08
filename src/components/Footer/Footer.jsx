@@ -1,7 +1,6 @@
 import React from 'react';
 import './Footer.css';
 import logo_b from '../../assets/logo-blanco.png';
-import whatsapp from '../../assets/whatsapp.png';
 import facebook from '../../assets/facebook.png'; // <- imagen, no URL
 import instagram from '../../assets/instagram.png';
 

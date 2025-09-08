@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import logos from '../../assets/logo-blanco.png';
 import previous from '../../assets/previ.png';
 import './Details.css';
 
